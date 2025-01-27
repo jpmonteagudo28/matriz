@@ -1,3 +1,39 @@
+#' Add Multiple Records to a literature matrix
+#'
+#' Adds one or more records to a literature matrix at a specified position. Records can be
+#' provided as lists or data frames, and can be inserted before or after specific rows.
+#'
+#' @param .data A data frame to which records will be added
+#' @param ... One or more records to add. Each record can be either:
+#'   \itemize{
+#'     \item A list with the same length as the number of columns in `.data`
+#'     \item A data frame with the same column structure as `.data`
+#'   }
+#' @param .before Row number before which to insert the new records.
+#'   If NULL (default), and `.after` is also NULL, records are appended to the end.
+#' @param .after Row number after which to insert the new records.
+#'   If NULL (default), and `.before` is also NULL, records are appended to the end.
+#'
+#' @return A data frame with the new records added at the specified position
+#'
+#' @examples
+#' # Create sample data frame
+#' df <- data.frame(
+#'   name = c("John", "Jane"),
+#'   age = c(25, 30)
+#' )
+#'
+#' # Add a single record as a list
+#' df <- add_batch_record(df, list(name = "Bob", age = 35))
+#'
+#' # Add multiple records as data frames
+#' new_records <- data.frame(
+#'   name = c("Alice", "Charlie"),
+#'   age = c(28, 40)
+#' )
+#' df <- add_batch_record(df, new_records, .before = 2)
+#'
+#' @export
 add_batch_record <- function(.data,
                       ...,
                       .before = NULL,
@@ -15,29 +51,33 @@ add_batch_record <- function(.data,
 
     new_records <- do.call(rbind, lapply(dots, function(dot) {
 
-      if (is.vector(dot) || is.list(dot)) {
-        if (length(dot) != ncol(.data)) {
-          stop(sprintf("Vector input must have length %d (number of columns in test)", ncol(.data)))
+      if (is.list(dot) && !is.data.frame(dot)) {
+        if (!same_length(dot,.data)) {
+          stop(sprintf(
+            "Input list length (%d) does not match data frame columns (%d)",
+            length(dot),
+            ncol(.data)
+          ))
         }
         # Convert vector to data frame while preserving column types
-        df <- as.data.frame(matrix(dot, nrow = 1), stringsAsFactors = FALSE)
+        df <- as.data.frame(dot)
         colnames(df) <- colnames(.data)
 
       } else if (is.data.frame(dot)) {
         if (!same_column(dot, .data)) {
-          stop("Data frame input must have the same number of columns as test")
+          stop("Data frame input must have the same number of columns as .data")
         }
         if (!equal_names(dot, .data)) {
           colnames(dot) <- colnames(.data)
         }
         df <- dot
       } else {
-        stop("Each input must be either a vector or a data frame")
+        stop("Each input must be either a list or a data frame")
       }
       return(df)
     }))
 
-    result <- determine_position(.data, df, .before, .after)
+    result <- determine_position(.data, new_records, .before, .after)
     .data <- result$data
     position <- result$position
 
@@ -52,4 +92,88 @@ add_batch_record <- function(.data,
     )
 
     return(.data)
+}
+
+#---- --- ---- --- ---- --- ---- --- ---- --- ---- --- ---- --- ----#
+#' Process Multiple BibTeX Citations and Update Literature Matrix
+#'
+#' Reads multiple BibTeX citations from files and updates the corresponding rows in a
+#' literature matrix with formatted citations, keywords, and years.
+#'
+#' @param .data A data frame containing at least three columns:
+#'   \itemize{
+#'     \item citation: Character column for formatted citations
+#'     \item keywords: List column for citation keywords
+#'     \item year: Numeric column for publication years
+#'   }
+#' @param citations Character vector of file paths to BibTeX citation files
+#' @param where Numeric vector indicating which rows to update. If NULL (default),
+#'   all rows will be updated.
+#'
+#' @return A data frame with updated citation information in the specified rows
+#'
+#' @examples
+#' # Create sample data frame
+#' df <- data.frame(
+#'   citation = character(2),
+#'   keywords = I(list(NULL, NULL)),
+#'   year = numeric(2)
+#' )
+#'
+#' \dontrun{
+#' # Process citations from files
+#' df <- process_batch_citation(
+#'   df,
+#'   citations = c("citation1.bib", "citation2.bib")
+#' )
+#'
+#' # Update specific rows
+#' df <- process_batch_citation(
+#'   df,
+#'   citations = "new_citation.bib",
+#'   where = c(TRUE, FALSE)
+#' )
+#' }
+#'
+#' @seealso \code{\link{format_batch_ama_citation}}, \code{\link{parse_batch_citation}}
+#' @export
+process_batch_citation <- function(.data, citations, where = NULL) {
+  # Input validation
+  stopifnot(
+    is.data.frame(.data),
+    is.character(citations),
+    all(file.exists(citations))
+  )
+
+  bib <- parse_batch_citation(citations)
+
+  # I need to extract the year and keywords
+  # put together the citation in AMA format
+
+  processed_citations <- format_batch_ama_citation(bib)
+
+  # Create temporary vectors to hold the new values
+  new_citations <- .data$citation
+  new_keywords <- .data$keywords
+  new_years <- .data$year
+
+  citation_idx <- 1
+  where <- if (is.null(where)) rep(TRUE, nrow(.data)) else where
+
+  # Update the vectors where the condition is TRUE
+  for (i in seq_len(nrow(.data))) {
+    if (where[i]) {
+      new_citations[i] <- processed_citations[[citation_idx]]$citation
+      new_keywords[i] <- list(processed_citations[[citation_idx]]$keywords)
+      new_years[i] <- processed_citations[[citation_idx]]$year
+      citation_idx <- citation_idx + 1
+    }
+  }
+
+  # Update the data frame columns
+  .data <- update_record(.data, "citation", where = where, set_to = new_citations)
+  .data <- update_record(.data, "keywords", where = where, set_to = new_keywords)
+  .data <- update_record(.data, "year", where = where, set_to = new_years)
+
+  return(.data)
 }

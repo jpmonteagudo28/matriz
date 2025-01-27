@@ -25,8 +25,10 @@ Modifies the values in a specified column of a data frame for rows that meet a g
 }
 \details{
 This function updates values in a specified column of a data frame for rows that satisfy the given condition.
-The `column` parameter accepts both unquoted column names and strings.
-The `where` parameter must evaluate to a logical vector of the same length as the data frame.
+The `column` parameter can be provided as:
+- A numeric column index (e.g., `2`).
+- A column name (e.g., `"value"`).
+- An unquoted column symbol (e.g., `value`).
 }
 \examples{
 # Example data frame

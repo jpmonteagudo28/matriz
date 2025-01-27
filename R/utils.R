@@ -4,14 +4,29 @@ deparse_dots <- function(...) {
 
 
 dots_n <- function(...) {
-  dots <- deparse_dots(...)
-  return(length(dots))
+  ...length()
 }
 
 
 same_length <- function(x, y) {
-  length(x) == length(y)
+  # Case 1: If either input is a list
+  if (is.list(x) || is.list(y)) {
+    # Both are lists
+    if (is.list(x) && is.list(y)) {
+      return(identical(lengths(x), lengths(y)))
+    }
+    # One is a list, the other is a data frame
+    if (is.list(x) && is.data.frame(y)) {
+      return(identical(length(x), length(y)))
+    }
+    if (is.data.frame(x) && is.list(y)) {
+      return(identical(length(x), length(y)))
+    }
+  }
+  # Case 2: Neither is a list; compare overall lengths
+  return(length(x) == length(y))
 }
+
 
 same_column <- function(x,y){
   ncol(x) == ncol(y)
@@ -29,3 +44,5 @@ is_empty <- function(x) {
 }
 
 `%!in%` <- Negate(`%in%`)
+
+catch_dots <- function(...) {list(...)}

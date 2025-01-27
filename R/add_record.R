@@ -86,7 +86,7 @@ add_record <- function(.data,
 add_empty_row <- function(.data) {
 
   if (!is.data.frame(.data)) {
-    stop("add_empty_row(.data = 'must be a data frame')")
+    stop(".data = must be a data frame")
   }
   n_cols <- ncol(.data)
   df <- data.frame(matrix(ncol = n_cols, nrow = 1))

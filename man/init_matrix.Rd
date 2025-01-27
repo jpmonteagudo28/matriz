@@ -4,10 +4,12 @@
 \alias{init_matrix}
 \title{Initialize a Literature Review Matrix}
 \usage{
-init_matrix(...)
+init_matrix(..., nrow = 1)
 }
 \arguments{
 \item{...}{Optional. Additional column names (as character strings) to be appended to the matrix.}
+
+\item{nrow}{Numeric. Number of rows to initialize the matrix with. Default is 1.}
 }
 \value{
 A data frame with predefined columns for literature review analysis.
@@ -52,6 +54,6 @@ Custom columns can also be added by passing their names via the `...` argument.
 lit_matrix <- init_matrix()
 
 # Add custom columns
-lit_matrix <- init_matrix("research_funding", "publication_type")
+lit_matrix <- init_matrix("research_funding", "publication_type",nrow = 5)
 
 }
