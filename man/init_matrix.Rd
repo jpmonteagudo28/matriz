@@ -53,7 +53,5 @@ Custom columns can also be added by passing their names via the `...` argument.
 # Create a basic literature review matrix
 lit_matrix <- init_matrix()
 
-# Add custom columns
-lit_matrix <- init_matrix("research_funding", "publication_type",nrow = 5)
 
 }

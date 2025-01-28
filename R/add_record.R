@@ -102,21 +102,27 @@ add_empty_row <- function(.data) {
 #' Calculates the position for inserting a new row in a data frame
 #'
 #' @param .data Original data frame
-#' @param df New row to be inserted
+#' @param record New row to be inserted
 #' @param .before Optional. Row number before which to insert
 #' @param .after Optional. Row number after which to insert
 #'
 #' @return List containing the potentially modified data frame and insertion position
 #'
 #' @keywords internal
-determine_position <- function(.data, df, .before = NULL, .after = NULL) {
+determine_position <- function(.data, record, .before = NULL, .after = NULL) {
+
   if (!is.null(.before)) {
     position <- .before
   } else if (!is.null(.after)) {
+    # If we're adding after the last row, we should handle it like an append
+    if (.after == nrow(.data)) {
+      .data <- rbind(.data, record)
+      return(list(data = .data, position = NULL))
+    }
     position <- .after + 1
   } else {
     # Append the new row to the end if neither .before nor .after is specified
-    .data <- rbind(.data, df)
+    .data <- rbind(.data, record)
     return(list(data = .data, position = NULL))
   }
   return(list(data = .data, position = position))

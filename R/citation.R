@@ -118,8 +118,7 @@ format_ama_citation <- function(bibtex_entry) {
                             string = bibtex_entry,
                             year = as.numeric(year),
                             citation = citation,
-                            keywords = keywords_vector),
-                            class = c("bibentry","character","citation")
+                            keywords = keywords_vector)
                           )
 
   invisible(citation_object)

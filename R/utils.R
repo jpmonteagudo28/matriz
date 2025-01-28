@@ -128,3 +128,18 @@ is_empty <- function(x) {
 #' @keywords internal
 #' @noRd
 `%!in%` <- Negate(`%in%`)
+
+#' Determine if list is nested
+#'
+#' @description Checks for nested lists in batch functions
+#' @keywords internal
+#' @param x List to check
+#' @return Logical indicating if list is nested
+#'
+
+is_nested_list <- function(x) {
+  if (!is.list(x)) {
+    return(FALSE)
+  }
+  is.list(x) && any(sapply(x, is.list))
+}

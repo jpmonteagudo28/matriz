@@ -52,7 +52,7 @@ add_batch_record <- function(.data,
 
     new_records <- do.call(rbind, lapply(dots, function(dot) {
 
-      if (is.list(dot) && !is.data.frame(dot)) {
+      if(is_nested_list(dot)){
         if (!same_length(dot,.data)) {
           stop(sprintf(
             "Input list length (%d) does not match data frame columns (%d)",
@@ -60,9 +60,30 @@ add_batch_record <- function(.data,
             ncol(.data)
           ))
         }
+
         # Convert vector to data frame while preserving column types
-        df <- as.data.frame(dot)
-        colnames(df) <- colnames(.data)
+        df_new <- do.call(rbind,
+                          lapply(dot,
+                                  as.data.frame,
+                                  stringsAsFactors = FALSE)
+                          )
+
+      } else if(is.list(dot) && !is.data.frame(dot)) {
+              if (!same_length(dot,.data)) {
+                stop(sprintf(
+                    "Input list length (%d) does not match data frame columns (%d)",
+                     length(dot),
+                    ncol(.data)
+                        )
+                    )
+        }
+
+        # Convert vector to data frame while preserving column types
+        df_new <- as.data.frame(dot,
+                                  stringsAsFactors = FALSE
+                                )
+
+        colnames(df_new) <- colnames(.data)
 
       } else if (is.data.frame(dot)) {
         if (!same_column(dot, .data)) {
@@ -71,12 +92,17 @@ add_batch_record <- function(.data,
         if (!equal_names(dot, .data)) {
           colnames(dot) <- colnames(.data)
         }
-        df <- dot
+        df_new <- dot
       } else {
         stop("Each input must be either a list or a data frame")
       }
-      return(df)
+
+      return(df_new)
     }))
+
+    if (!identical(colnames(.data), colnames(new_records))) {
+      stop("Column names of new_records do not match .data")
+    }
 
     result <- determine_position(.data, new_records, .before, .after)
     .data <- result$data
@@ -91,6 +117,9 @@ add_batch_record <- function(.data,
       new_records,
       .data[seq(position, nrow(.data)), , drop = FALSE]
     )
+
+    # Reset row names to avoid duplicate or mismatched names
+    row.names(.data) <- NULL
 
     return(.data)
 }

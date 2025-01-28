@@ -32,11 +32,27 @@ append_column <- function(.data,
   # Ensure the input is a data frame
   stopifnot(is.data.frame(.data))
 
+  if(is_empty(.data)) {
+    stop("Input data frame is empty")
+  }
+
+  if(nrow(.data) != length(new_col)) {
+    stop("Length of new column must match number of rows in data frame")
+  }
+
+
   # Derive the column name from the name of the new_col vector
   new_col_name <- deparse(substitute(new_col))
 
   # Add the new column with the correct name to the data frame
   .data[[new_col_name]] <- new_col
+
+  if(!is.null(.before) && .before %!in% colnames(.data)) {
+    stop("Column name not found")
+  }
+  if(!is.null(.after) && .after %!in% colnames(.data)) {
+    stop("Column name not found")
+  }
 
   # Determine the position to insert the new column
   if (!is.null(.before)) {

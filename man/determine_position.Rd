@@ -4,12 +4,12 @@
 \alias{determine_position}
 \title{Determine Row Insertion Position}
 \usage{
-determine_position(.data, df, .before = NULL, .after = NULL)
+determine_position(.data, record, .before = NULL, .after = NULL)
 }
 \arguments{
 \item{.data}{Original data frame}
 
-\item{df}{New row to be inserted}
+\item{record}{New row to be inserted}
 
 \item{.before}{Optional. Row number before which to insert}
 
