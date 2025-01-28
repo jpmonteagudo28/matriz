@@ -21,17 +21,3 @@ An updated list containing the original record with added fields:
 Takes a record list and a citation string, processes the citation into AMA format,
 and updates the record with the formatted citation, keywords, and year.
 }
-\examples{
-record <- list(citation = "", keywords = "", year = 0)
-citation <- "@article{key,
-  author = {Smith J and Jones K},
-  title = {Example Title},
-  journal = {Journal Name},
-  year = {2024},
-  volume = {1},
-  pages = {1-10},
-  keywords = {keyword1, keyword2}
-}"
-processed_record <- process_citation(record, citation)
-
-}

@@ -46,17 +46,23 @@ update_record <- function(.data,
 
   stopifnot(is.data.frame(.data))
 
-  # Handle column input
-  if (is.numeric(column)) {
-    # If column is numeric, convert to column name
-    if (column > ncol(.data) || column < 1) {
+  column_quo <- rlang::enquo(column)
+
+  if (rlang::quo_is_null(column_quo)) {
+    stop("Column must be specified")
+  }
+
+  if (is.numeric(rlang::quo_get_expr(column_quo))) {
+
+    column_idx <- rlang::eval_tidy(column_quo)
+
+    if (column_idx > ncol(.data) || column_idx < 1) {
       stop("Column index is out of range.")
     }
-    column_name <- names(.data)[column]
+    column_name <- names(.data)[column_idx]
   } else {
-    # Capture and deparse column name
-    column <- rlang::enquo(column)
-    column_name <- rlang::as_name(column)
+    # Get the column name from the quosure
+    column_name <- rlang::as_name(column_quo)
   }
 
 

@@ -29,6 +29,7 @@ Adds one or more records to a literature matrix at a specified position. Records
 provided as lists or data frames, and can be inserted before or after specific rows.
 }
 \examples{
+\dontrun{
 # Create sample data frame
 df <- data.frame(
   name = c("John", "Jane"),
@@ -43,6 +44,6 @@ new_records <- data.frame(
   name = c("Alice", "Charlie"),
   age = c(28, 40)
 )
-df <- add_batch_record(df, new_records, .before = 2)
+df <- add_batch_record(df, new_records, .before = 2)}
 
 }

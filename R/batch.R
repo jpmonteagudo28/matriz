@@ -17,6 +17,7 @@
 #' @return A data frame with the new records added at the specified position
 #'
 #' @examples
+#' \dontrun{
 #' # Create sample data frame
 #' df <- data.frame(
 #'   name = c("John", "Jane"),
@@ -31,7 +32,7 @@
 #'   name = c("Alice", "Charlie"),
 #'   age = c(28, 40)
 #' )
-#' df <- add_batch_record(df, new_records, .before = 2)
+#' df <- add_batch_record(df, new_records, .before = 2)}
 #'
 #' @export
 add_batch_record <- function(.data,

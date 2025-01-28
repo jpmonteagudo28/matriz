@@ -11,19 +11,6 @@
 #'   \item{keywords}{A vector of keywords from the citation}
 #'   \item{year}{The publication year}
 #'
-#' @examples
-#' record <- list(citation = "", keywords = "", year = 0)
-#' citation <- "@article{key,
-#'   author = {Smith J and Jones K},
-#'   title = {Example Title},
-#'   journal = {Journal Name},
-#'   year = {2024},
-#'   volume = {1},
-#'   pages = {1-10},
-#'   keywords = {keyword1, keyword2}
-#' }"
-#' processed_record <- process_citation(record, citation)
-#'
 #' @importFrom stringr str_replace_all
 #' @export
 process_citation <- function(.record,citation){
@@ -104,7 +91,7 @@ format_ama_citation <- function(bibtex_entry) {
     authors <- strsplit(authors, " and ")[[1]]
     authors <- sapply(authors, function(x) {
       parts <- strsplit(x, " ")[[1]]
-      last_name <- tail(parts, 1)
+      last_name <- utils::tail(parts, 1)
       initials <- paste(substr(parts[-length(parts)], 1, 1), collapse = "")
       paste(last_name, initials, sep = " ")
     })
@@ -139,7 +126,25 @@ format_ama_citation <- function(bibtex_entry) {
 }
 
 #---- --- ---- --- ---- --- ---- --- ---- --- ---- --- ---- --- ----#
-# Helper function to extract a field
+#' Extract field value from BibTeX entry
+#'
+#' @description
+#' Extracts the value of a specified field from a BibTeX entry string using regular expressions.
+#' The function is case-insensitive and handles various spacing patterns around the field
+#' delimiter.
+#'
+#' @param entry Character string containing a BibTeX entry
+#' @param field Name of the field to extract (e.g., "title", "author", "year")
+#'
+#' @return Character string containing the field value if found, NA if the field is not present
+#'
+#' @details
+#' The function searches for patterns of the form "field = \{value\}" in the BibTeX entry,
+#' ignoring case and allowing for variable whitespace around the equals sign. The value
+#' is expected to be enclosed in curly braces.
+#'
+#' @keywords internal
+#'
 extract_field <- function(entry, field) {
   pattern <- paste0("(?i)",field, "\\s*=\\s*\\{(.*?)\\},?")
   matches <- regmatches(entry, regexec(pattern, entry, perl = TRUE))[[1]]
@@ -323,7 +328,7 @@ format_batch_ama_citation <- function(bibtex_entries) {
       author_list <- strsplit(fields$authors, " and ")[[1]]
       formatted <- vapply(author_list, function(x) {
         parts <- strsplit(x, " ")[[1]]
-        last_name <- tail(parts, 1)
+        last_name <- utils::tail(parts, 1)
         initials <- paste(substr(parts[-length(parts)], 1, 1), collapse = "")
         paste(last_name, initials, sep = " ")
       }, character(1))
