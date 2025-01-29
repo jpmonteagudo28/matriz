@@ -18,6 +18,10 @@ process_citation <- function(.record,citation){
   stopifnot(is.list(.record),
             is.character(citation))
 
+  if(is.data.frame(.record) && nrow(.record) > 1){
+    warning("The same citation file will be applied across all rows. Provide a record of class 'list' to process one citation or process batch citation using other functions.")
+  }
+
     bib <- parse_citation(citation)
 
     # I need to extract the year and keywords

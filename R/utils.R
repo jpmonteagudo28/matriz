@@ -143,3 +143,36 @@ is_nested_list <- function(x) {
   }
   is.list(x) && any(sapply(x, is.list))
 }
+
+#' Remove Duplicates from Vectors or Data Frame Columns
+#'
+#' @param x A vector or data frame
+#' @param incomparables A vector of values that cannot be compared. See ?duplicated
+#' @param ... arguments for particular methods used in 'unique' and 'duplicated'
+#' @return The input with duplicates removed
+#' @keywords internal
+
+
+rid_dups <- function(x,
+                     incomparables = FALSE,
+                     ...) {
+
+  if (!is.data.frame(x) && !is.vector(x)) {
+    stop("Input must be a data frame or a vector.")
+  }
+  if (is.data.frame(x)) {
+
+    base_names <- sub("\\.\\d+$", "", colnames(x))
+    dups <- duplicated(base_names, incomparables = incomparables)
+    if (any(dups)) {
+      x <- x[, !dups, drop = FALSE]
+    }
+  } else {
+    dups <- anyDuplicated(x, incomparables = incomparables)
+    if (dups) {
+      x <- unique(x)
+    }
+  }
+
+  return(x)
+}
