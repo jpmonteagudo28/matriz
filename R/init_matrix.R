@@ -50,7 +50,9 @@
 
 init_matrix <- function(...,nrow = 1){
 
-  stopifnot(is.numeric(nrow), !nrow < 0)
+  if(!is.numeric(nrow) || nrow < 0){
+    stop("nrow argument must be a numeric vector with a length of 1")
+  }
 
   lit_matrix <- data.frame(
     year = numeric(length = nrow),
@@ -87,7 +89,8 @@ init_matrix <- function(...,nrow = 1){
     message("Extra arguments passed: ", paste(extra_args, collapse = ", "))
 
     for (col_name in extra_args) {
-      lit_matrix <- append_column(lit_matrix, new_col = NA, .after = NULL)
+      new_col <- rep(NA, nrow)
+      lit_matrix <- append_column(lit_matrix, new_col, .after = NULL)
       names(lit_matrix)[ncol(lit_matrix)] <- col_name
     }
   }

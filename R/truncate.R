@@ -21,6 +21,7 @@ truncate <- function(.data, keep_rows = FALSE){
 
   if(keep_rows){
     .data[which(!is.na(.data), arr.ind = TRUE)] <- NA
+    return(.data)
   }
   .data[0, , drop = FALSE]
 }

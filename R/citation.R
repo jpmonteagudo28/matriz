@@ -86,14 +86,14 @@ format_ama_citation <- function(bibtex_entry) {
   # Miscellaneous-specific fields
   url <- extract_field(bibtex_entry, "url")
 
-  # Format authors (last name + initials)
+  # Format authors (last name + first name + initials)
   if (!is.na(authors)) {
     authors <- strsplit(authors, " and ")[[1]]
     authors <- sapply(authors, function(x) {
       parts <- strsplit(x, " ")[[1]]
       last_name <- utils::tail(parts, 1)
-      initials <- paste(substr(parts[-length(parts)], 1, 1), collapse = "")
-      paste(last_name, initials, sep = " ")
+      first_names <- paste(parts[-length(parts)], collapse = " ") # Everything before last name as full first name
+      paste(last_name, first_names, sep = " ")
     })
     authors <- paste(authors, collapse = ", ")
   }
