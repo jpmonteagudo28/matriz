@@ -173,6 +173,25 @@ rid_dups <- function(x,
       x <- unique(x)
     }
   }
-
   return(x)
+}
+
+#' Convert Symbol to Character
+#' @description Converts a symbol to a character string
+#' @param symbol A symbol to convert
+#' @return A character string
+#' @keywords internal
+
+to_char <- function(symbol) {
+
+  expr <- substitute(symbol)
+
+  if (is.character(expr)) {
+    return(expr)
+  }
+
+  if (is.name(expr)) {
+    return(as.character(expr))
+  }
+  return(deparse(expr))
 }

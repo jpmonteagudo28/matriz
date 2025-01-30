@@ -71,7 +71,7 @@ update_record <- function(.data,
   }
 
   # Evaluate the `where` condition
-  condition <- rlang::eval_tidy(rlang::enquo(where), .data)
+  condition <- rlang::eval_tidy(rlang::enquo(where), data = .data)
   if (!is.logical(condition) || length(condition) != nrow(.data)) {
     stop("The `where` condition must evaluate to a logical vector of the same length as the data.")
   }

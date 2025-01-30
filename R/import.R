@@ -105,6 +105,49 @@ import_matrix <- function(path,
   }
   data <- rid_dups(data)
 
+  # Validate and clean the imported data
+  data <- validate_columns(data,
+                           extra_columns = extra_columns,
+                           drop_extra = drop_extra,
+                           silent = silent
+                           )
+
+  return(data)
+}
+
+#' Validate and Clean Imported Data Matrix
+#'
+#' This function ensures that the imported data contains all required columns,
+#' optionally removes unwanted extra columns, and provides informative messages
+#' about the dataset's structure.
+#'
+#' @param data A data frame containing the imported matrix.
+#' @param extra_columns A character vector of allowed additional columns beyond the required ones. Defaults to NULL.
+#' @param drop_extra A logical value indicating whether to remove extra columns that are not in `extra_columns`. Defaults to FALSE.
+#' @param silent A logical value indicating whether to suppress messages. Defaults to FALSE.
+#'
+#' @return A cleaned data frame with required columns intact and, optionally, extra columns removed.
+#'
+#' @details
+#' The function checks whether all required columns are present in the data. If any required columns are
+#' missing, it stops execution and informs the user.
+#'
+#' It also identifies extra columns beyond the required set and compares them against the allowed `extra_columns`.
+#' If `drop_extra = TRUE`, it removes any extra columns not listed in `extra_columns`.
+#' If `drop_extra = FALSE`, it retains the extra columns but issues a message unless `silent = TRUE`.
+#'
+#' @note The function assumes that column names in `data` are correctly formatted and case-sensitive.
+#'
+#' @examples
+#' data <- init_matrix(nrow = 5,extra1)
+#' validate_columns(data, extra_columns = "extra1", drop_extra = TRUE)
+#'
+#' @export
+validate_columns <- function(data,
+                             extra_columns = NULL,
+                             drop_extra = FALSE,
+                             silent = FALSE) {
+
   # Ensure the imported data matches expected structure
   required_columns <- c("year", "citation", "keywords", "profession", "electronic",
                         "purpose", "study_design", "outcome_var", "predictor_var", "sample",
