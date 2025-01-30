@@ -1,6 +1,6 @@
 Package: matriz
 Type: Package
-Title: Matrix synthesis tools for epidemiologic and health science research; specifically, literature reviews
+Title: Literature matrix synthesis tools for epidemiologic and health science research; specifically, literature reviews
 Version: 0.1.0
 Authors@R: 
     person("JP", "Monteagudo", 

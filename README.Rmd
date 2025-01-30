@@ -13,13 +13,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# matriz <img src="man/figures/logo.png" align="right" height="275" alt="" />
-
+# matriz <img src="man/figures/logo.png" align="right" height="275"/>
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
-The goal of matriz is to ...
+The goal of 'matriz' is to help you easily generate and manage structured literature review matrices in R. The package aims to streamline your research synthesis, track key study details, and organize citations efficiently.
 
 ## Installation
 
@@ -28,24 +28,77 @@ You can install the development version of matriz like so:
 ``` r
 devtools::install_github("jpmonteagudo28/matriz)
 ```
+
 or you can download it from CRAN:
 
-```r
+``` r
 install.packages("matriz")
 ```
 
-## Example
+## Intro 
 
-This is a basic example which shows you how to solve a common problem:
+This document walks through the main steps of using `matriz`, from setting up your matrix to searching and refining it.
+
+
+####  Importing Literature Matrices
+
+The first step is to bring your literature data into R. If you have an existing matrix in CSV or another format, use the `import_matrix()` function. Otherwise, create an empty matrix using `init_matrix()`:
 
 ```{r example}
 library(matriz)
-## basic example code
+
+lit_matrix <- init_matrix()
+
+#Print empty matrix
+str(lit_matrix)
+
+# Start filling out individual record with article info
+article <- list(year = 2025,citation = character(0),keywords = character(0),
+                profession = "underwater basket weaver",electronic = "YES",
+                purpose = "To investigate the depth of the oceans and retireve weaving materials",
+                study_design = "ethnography", outcome_var = "perceived attitudes towards basket weaving",
+                predictor_var = NA, sample = "a small school of clown fish", setting = "Italy",
+                drop_rate = 0.13, inclusion_criteria = "clow fish in Adriatic Sea", 
+                ehtnicity = "oceanic", age = "0 - 1 year",sex = "both",income = NULL,
+                education = "none",measures = "perceived attitudes",
+                analysis = "qualitative", results = "no significant differences",
+                limitations = "small sample size", implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",ethical_concerns = "no informed consent given to school of clown fish",biases = "clownfish always try to be funny. Lack of seriounness",notes = "more research needed")
+
+
+# Process and add the citation to the current record
+bibtex <- system.file("examples","example.bib",package = "matriz")
+
+cited_article <- process_citation(article,bibtex)
+
+
+# Add the record to the literature matrix
+lit_matrix <- add_record(lit_matrix, cited_article, .before = 1)
+
+# Update record if mistake was made
+lit_matrix <- update_record(lit_matrix, notes, where = year == 2025, set_to = "actually, the clow fish don't want us to come back.")
+
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+#### Merging Matrices  
 
-```{r cars}
-summary(cars)
+If you have multiple literature matrices and need to combine them, use `merge_matrix()`. This function ensures that duplicate columns are removed before merging.
+
+```{r merging}
+# Merge two literature matrices by a common column (e.g., "study_id")
+additional_matrix <- lit_matrix
+combined_matrix <- merge_matrix(lit_matrix, additional_matrix, by = "year", all = TRUE)
+
+# if you rather bind the two matrices together by rows, use 'add_batch_record()'
+
 ```
 
+#### Searching for Records  
+
+Once your matrix is set up, you might need to search for specific studies based on keywords, author names, or topics. Use `search_record()` to filter the matrix for relevant entries.
+
+#### Exporting the Final Matrix
+
+Once you’ve refined and categorized your literature review, you can export the matrix for further use in Excel or other tools using `export_matrix()`.
+
+This structured workflow should make managing literature reviews more efficient and streamlined.

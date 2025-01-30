@@ -5,7 +5,6 @@
 #' allowing the addition of custom columns if needed.
 #'
 #' @param ... Optional. Additional column names (as character strings) to be appended to the matrix.
-#' @param nrow Numeric. Number of rows to initialize the matrix with. Default is 1.
 #'
 #' @return A data frame with predefined columns for literature review analysis.
 #'
@@ -48,39 +47,35 @@
 #' @export
 
 
-init_matrix <- function(...,nrow = 1){
-
-  if(!is.numeric(nrow) || nrow < 0){
-    stop("nrow argument must be a numeric vector with a length of 1")
-  }
+init_matrix <- function(...){
 
   lit_matrix <- data.frame(
-    year = numeric(length = nrow),
-    citation = character(length = nrow),
-    keywords = character(length = nrow),
-    profession = character(length = nrow),
-    electronic = logical(length = nrow),
-    purpose = character(length = nrow),
-    study_design = character(length = nrow),
-    outcome_var = character(length = nrow),
-    predictor_var = character(length = nrow),
-    sample = numeric(length = nrow),
-    dropout_rate = numeric(length = nrow),
-    setting = character(length = nrow),
-    inclusion_criteria = character(length = nrow),
-    ethnicity = character(length = nrow),
-    age = numeric(length = nrow),
-    sex = factor(character(length = nrow)),
-    income = factor(character(length = nrow)),
-    education = character(length = nrow),
-    measures = character(length = nrow),
-    analysis = character(length = nrow),
-    results = character(length = nrow),
-    limitations = character(length = nrow),
-    implications = character(length = nrow),
-    ethical_concerns = character(length = nrow),
-    biases = character(length = nrow),
-    notes = character(length = nrow)
+    year = numeric(0),
+    citation = character(0),
+    keywords = character(0),
+    profession = character(0),
+    electronic = logical(0),
+    purpose = character(0),
+    study_design = character(0),
+    outcome_var = character(0),
+    predictor_var = character(0),
+    sample = numeric(0),
+    dropout_rate = numeric(0),
+    setting = character(0),
+    inclusion_criteria = character(0),
+    ethnicity = character(0),
+    age = numeric(0),
+    sex = factor(character(0)),
+    income = factor(character(0)),
+    education = character(0),
+    measures = character(0),
+    analysis = character(0),
+    results = character(0),
+    limitations = character(0),
+    implications = character(0),
+    ethical_concerns = character(0),
+    biases = character(0),
+    notes = character(0)
   )
 
   if (!missing(...)) {
@@ -89,7 +84,7 @@ init_matrix <- function(...,nrow = 1){
     message("Extra arguments passed: ", paste(extra_args, collapse = ", "))
 
     for (col_name in extra_args) {
-      new_col <- rep(NA, nrow)
+      new_col <- rep(NA, 1L)
       lit_matrix <- append_column(lit_matrix, new_col, .after = NULL)
       names(lit_matrix)[ncol(lit_matrix)] <- col_name
     }

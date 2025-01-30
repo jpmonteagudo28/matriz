@@ -1,3 +1,37 @@
+#' Search and Filter Records in a literature matrix
+#'
+#' @description
+#' Filters a literature matrix based on a specified condition, with the option to restrict the search
+#' to a specific column. The function supports both column names and numeric indices for column selection.
+#'
+#' @param .data A data frame to search within.
+#' @param column Optional. The column to search in, specified either by name or numeric index.
+#'              If NULL (default), the search is performed across all columns.
+#' @param where A logical expression that defines the search condition.
+#'             Must evaluate to a logical vector of the same length as the number of rows in `.data`.
+#'
+#' @return A filtered data frame containing only the rows that match the search condition.
+#'         If a specific column was selected, only that column is returned.
+#'
+#' @examples
+#' df <- data.frame(
+#'   id = 1:5,
+#'   name = c("John", "Jane", "Bob", "Alice", "John"),
+#'   age = c(25, 30, 35, 28, 40)
+#' )
+#'
+#' # Search across all columns where age > 30
+#' search_record(df, where = age > 30)
+#'
+#' # Search only in the name column for "John"
+#' search_record(df, column = "name", where = name == "John")
+#'
+#' # Search using column index
+#' search_record(df, column = 2, where = name == "Jane")
+#'
+#' @export
+#'
+#' @importFrom rlang enquo eval_tidy quo_get_expr as_name
 #' @importFrom dplyr filter
 search_record <- function(.data,
                           column = NULL,

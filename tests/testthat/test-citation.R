@@ -35,7 +35,7 @@ test_that("format_ama_citation processes articles correctly", {
   expect_equal(class(entry),  "list")
   expect_equal(entry$year, 2024)
   expect_true(grepl("Smith J, Jones K\\. Example Title\\. Journal Name\\. 2024;1:1-10\\. doi:10\\.1234/example", entry$citation))
-  expect_equal(entry$keywords, NULL) # No keywords in the mock_article
+  expect_equal(entry$keywords, NA_character_) # No keywords in the mock_article
 })
 
 test_that("format_ama_citation processes books correctly", {
@@ -44,7 +44,7 @@ test_that("format_ama_citation processes books correctly", {
   expect_equal(class(entry), "list")
   expect_equal(entry$year, 2020)
   expect_true(grepl("J Doe\\. Example Book Title\\. 2nd ed\\. New York, NY: Book Publisher; 2020", entry$citation))
-  expect_equal(entry$keywords, NULL) # No keywords in the mock_book
+  expect_equal(entry$keywords, NA_character_) # No keywords in the mock_book
 })
 
 test_that("process_citation updates .record correctly", {

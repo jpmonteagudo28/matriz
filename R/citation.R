@@ -114,7 +114,7 @@ format_ama_citation <- function(bibtex_entry) {
   }
 
   # Create a vector of keywords
-  keywords_vector <- if (!is.na(keywords)) strsplit(keywords, ",\\s*")[[1]] else c()
+  keywords_vector <- if (!is.na(keywords)) strsplit(keywords, ",\\s*")[[1]] else NA_character_
 
   # Return results
   citation_object <- structure(
@@ -385,8 +385,7 @@ format_batch_ama_citation <- function(bibtex_entries) {
         year = as.numeric(fields$year),
         citation = citation,
         keywords = keywords_vector
-      ),
-      class = c("bibentry","character","citation")
+      )
     )
   })
 

@@ -39,8 +39,3 @@ If `drop_extra = FALSE`, it retains the extra columns but issues a message unles
 \note{
 The function assumes that column names in `data` are correctly formatted and case-sensitive.
 }
-\examples{
-data <- init_matrix(nrow = 5,extra1)
-validate_columns(data, extra_columns = "extra1", drop_extra = TRUE)
-
-}

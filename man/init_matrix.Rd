@@ -4,12 +4,10 @@
 \alias{init_matrix}
 \title{Initialize a Literature Review Matrix}
 \usage{
-init_matrix(..., nrow = 1)
+init_matrix(...)
 }
 \arguments{
 \item{...}{Optional. Additional column names (as character strings) to be appended to the matrix.}
-
-\item{nrow}{Numeric. Number of rows to initialize the matrix with. Default is 1.}
 }
 \value{
 A data frame with predefined columns for literature review analysis.

@@ -48,7 +48,8 @@ add_batch_record <- function(.data,
     .data <- add_empty_row(.data)
     return(.data)
   }
-    dots <- list(...)
+
+  dots <- list(...)
 
     new_records <- do.call(rbind, lapply(dots, function(dot) {
 

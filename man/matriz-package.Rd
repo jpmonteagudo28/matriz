@@ -4,7 +4,7 @@
 \name{matriz-package}
 \alias{matriz}
 \alias{matriz-package}
-\title{matriz: Matrix synthesis tools for epidemiologic and health science research; specifically, literature reviews}
+\title{matriz: Literature matrix synthesis tools for epidemiologic and health science research; specifically, literature reviews}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

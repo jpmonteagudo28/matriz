@@ -14,6 +14,8 @@
 #'
 #' @return Exports the data to a file and returns `NULL` invisibly.
 #' @export
+#' @importFrom writexl write_xlsx
+#' @importFrom readxl write_tsv
 #'
 #' @examples
 #' \dontrun{
@@ -64,11 +66,11 @@ export_matrix <- function(.data,
                           )
 
    switch(format,
-            csv = do.call(write.csv, c(list(.data, file), dots)),
+            csv = do.call(utils::write.csv, c(list(.data, file), dots)),
             tsv = do.call(readxl::write_tsv, c(list(.data, file), dots)),
             rds = saveRDS(.data, file),
             xlsx = do.call(writexl::write_xlsx, c(list(.data), dots, list(path = file))),
-            txt = do.call(write.table, c(list(.data, file), dots)),
+            txt = do.call(utils::write.table, c(list(.data, file), dots)),
             stop("Unsupported file format. Please specify csv, tsv, rds, xlsx, xls, or txt.")
          )
 

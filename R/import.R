@@ -7,6 +7,7 @@
 #'   Supported formats: "csv", "tsv", "rds", "xlsx", "xls", "txt".
 #' @param drop_extra A logical value indicating whether extra columns (not in the list of required columns) should be dropped. Default is `FALSE`.
 #' @param extra_columns A character vector of column names that are allowed in addition to the required columns. By default, no extra columns are allowed.
+#' @param remove_dups A logical value indicating whether to remove duplicate columns before merging. Default is `TRUE`.
 #' @param silent A logical value indicating whether to suppress messages. Default is `FALSE`.
 #' @param ... Additional arguments passed to the specific file-reading functions (e.g., `read.csv`, `read.delim`, `readRDS`, `readxl::read_xlsx`, `readxl::read_xls`, `read.table`).
 #'   Refer to the documentation of the corresponding read function for the list of valid arguments.
@@ -47,11 +48,11 @@
 #'
 #' The `...` argument allows you to pass additional parameters directly to the read functions. For instance:
 #' - For `read.csv`, `...` could include `header = TRUE`, `sep = ","`, or `stringsAsFactors = FALSE`.
-#' - For `read.delim`, `...` could include `header = TRUE`, `sep = "\t"`, or `stringsAsFactors = FALSE`.
+#' - For `read.delim`, `...` could include `header = TRUE`, `sep `, or `stringsAsFactors = FALSE`.
 #' - For `readRDS`, `...` could include `refhook = NULL`.
 #' - For `readxl::read_xlsx`, `...` could include `sheet = 1` or `col_names = TRUE`.
 #' - For `readxl::read_xls`, `...` could include `sheet = 1` or `col_Names = TRUE`.
-#' - For `read.table`, `...` could include `header = TRUE`, `sep = "\t"`, or `stringsAsFactors = FALSE`.
+#' - For `read.table`, `...` could include `header = TRUE`, `sep`, or `stringsAsFactors = FALSE`.
 #'
 #' @examples
 #' \dontrun{
@@ -62,10 +63,11 @@
 #' data <- import_matrix("data.tsv", format = "tsv", drop_extra = TRUE)
 #'
 #' # Import an RDS file and allow additional columns
-#' data <- import_matrix("data.rds", format = "rds", extra_columns = c("extra_column1", "extra_column2"))
+#' data <- import_matrix("data.rds", format = "rds",
+#' extra_columns = c("extra_column1", "extra_column2"))
 #' }
 #'
-#' @importFrom dplyr select
+#' @importFrom dplyr select all_of
 #' @importFrom tools file_ext
 #' @importFrom readxl read_xlsx read_xls
 #' @export
@@ -73,10 +75,11 @@ import_matrix <- function(path,
                           format = NULL,
                           drop_extra = FALSE,
                           extra_columns = NULL,
+                          remove_dups = TRUE,
                           silent = FALSE,
-                          ...) {
+                          ...){
 
-  if (!file.exists(path)) {
+  if (!file.exists(path)){
     stop("The specified file does not exist.")
   }
 
@@ -89,18 +92,18 @@ import_matrix <- function(path,
 
   # Read the file based on format
   data <- switch(format,
-                 csv = do.call(read.csv, c(list(path), dots)),
-                 tsv = do.call(read.delim, c(list(path), dots)),
+                 csv = do.call(utils::read.csv, c(list(path), dots)),
+                 tsv = do.call(utils::read.delim, c(list(path), dots)),
                  rds = readRDS(path),
-                 xlsx = do.call(openxlsx::read.xlsx, c(list(path), dots)),
-                 xls = do.call(gdata::read.xls, c(list(path), dots)),
-                 txt = do.call(read.table, c(list(path), dots)),
+                 xlsx = do.call(readxl::read_xlsx, c(list(path), dots)),
+                 xls = do.call(readxl::read_xls, c(list(path), dots)),
+                 txt = do.call(utils::read.table, c(list(path), dots)),
                  stop("Unsupported file format. Please specify csv, tsv, rds, xlsx, xls, or txt.")
   )
 
   data <- as.data.frame(data)
 
-  if (!silent && anyDuplicated(colnames(data))) {
+  if (!silent && remove_dups) {
     message("Removing duplicate columns...")
   }
   data <- rid_dups(data)
@@ -138,9 +141,6 @@ import_matrix <- function(path,
 #'
 #' @note The function assumes that column names in `data` are correctly formatted and case-sensitive.
 #'
-#' @examples
-#' data <- init_matrix(nrow = 5,extra1)
-#' validate_columns(data, extra_columns = "extra1", drop_extra = TRUE)
 #'
 #' @export
 validate_columns <- function(data,
@@ -178,7 +178,7 @@ validate_columns <- function(data,
 
     # Only drop unwanted extra columns if drop_extra is TRUE
     data <- data |>
-      dplyr::select(-all_of(unwanted_extra))
+      dplyr::select(-dplyr::all_of(unwanted_extra))
   } else {
     # No action is taken if drop_extra is FALSE
     if (length(unwanted_extra) > 0 && !silent) {

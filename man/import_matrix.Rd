@@ -10,6 +10,7 @@ import_matrix(
   format = NULL,
   drop_extra = FALSE,
   extra_columns = NULL,
+  remove_dups = TRUE,
   silent = FALSE,
   ...
 )
@@ -23,6 +24,8 @@ Supported formats: "csv", "tsv", "rds", "xlsx", "xls", "txt".}
 \item{drop_extra}{A logical value indicating whether extra columns (not in the list of required columns) should be dropped. Default is `FALSE`.}
 
 \item{extra_columns}{A character vector of column names that are allowed in addition to the required columns. By default, no extra columns are allowed.}
+
+\item{remove_dups}{A logical value indicating whether to remove duplicate columns before merging. Default is `TRUE`.}
 
 \item{silent}{A logical value indicating whether to suppress messages. Default is `FALSE`.}
 
@@ -70,11 +73,11 @@ extra columns will be removed. If `drop_extra` is `FALSE`, extra columns will re
 
 The `...` argument allows you to pass additional parameters directly to the read functions. For instance:
 - For `read.csv`, `...` could include `header = TRUE`, `sep = ","`, or `stringsAsFactors = FALSE`.
-- For `read.delim`, `...` could include `header = TRUE`, `sep = "\t"`, or `stringsAsFactors = FALSE`.
+- For `read.delim`, `...` could include `header = TRUE`, `sep `, or `stringsAsFactors = FALSE`.
 - For `readRDS`, `...` could include `refhook = NULL`.
 - For `readxl::read_xlsx`, `...` could include `sheet = 1` or `col_names = TRUE`.
 - For `readxl::read_xls`, `...` could include `sheet = 1` or `col_Names = TRUE`.
-- For `read.table`, `...` could include `header = TRUE`, `sep = "\t"`, or `stringsAsFactors = FALSE`.
+- For `read.table`, `...` could include `header = TRUE`, `sep`, or `stringsAsFactors = FALSE`.
 }
 \examples{
 \dontrun{
@@ -85,7 +88,8 @@ data <- import_matrix("data.csv", format = "csv", drop_extra = FALSE)
 data <- import_matrix("data.tsv", format = "tsv", drop_extra = TRUE)
 
 # Import an RDS file and allow additional columns
-data <- import_matrix("data.rds", format = "rds", extra_columns = c("extra_column1", "extra_column2"))
+data <- import_matrix("data.rds", format = "rds",
+extra_columns = c("extra_column1", "extra_column2"))
 }
 
 }
