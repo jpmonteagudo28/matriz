@@ -13,7 +13,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 ![Static Badge](https://img.shields.io/badge/epi-research-%2384B4BF)
 <!-- badges: end -->
 
-The goal of ‘matriz’ is to help you easily generate and manage
+The goal of `matriz` is to help you easily generate and manage
 structured literature review matrices in R. The package aims to
 streamline your research synthesis, track key study details, and
 organize citations efficiently.
