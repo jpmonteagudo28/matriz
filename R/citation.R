@@ -102,16 +102,31 @@ format_ama_citation <- function(bibtex_entry) {
     authors <- paste(authors, collapse = ", ")
   }
 
-  # Format citation based on entry type
-  if (entry_type == "article") {
-    citation <- paste0(authors, ". ", title, ". ", journal, ". ", year, ";", volume, ":", pages, ". doi:", doi)
-  } else if (entry_type == "book") {
-    citation <- paste0(authors, ". ", title, ". ", edition, " ed. ", city, ", ", state, ": ", publisher, "; ", year,
-                       if (!is.na(chapter)) paste0(". Chapter ", chapter, "."), "")
-  } else { # Miscellaneous
-    citation <- paste0(authors, ". ", title, ". ", year,
-                       if (!is.na(url)) paste0(". Available at: ", url, "."), "")
-  }
+  citation <- switch(
+    entry_type,
+    "article" = paste0(
+      authors, ". ", title, ". ",
+      if (!is.na(journal)) paste0(journal, ". ") else "",
+      if (!is.na(year)) paste0(year, ";") else "",
+      if (!is.na(volume)) paste0(volume, ":") else "",
+      if (!is.na(pages)) paste0(pages) else "",
+      if (!is.na(doi)) paste0(". doi:", doi) else ""
+    ),
+    "book" = paste0(
+      authors, ". ", title, ". ",
+      if (!is.na(edition)) paste0(edition, " ed. ") else "",
+      if (!is.na(city)) paste0(city, ", ") else "",
+      if (!is.na(state)) paste0(state, ": ") else "",
+      if (!is.na(publisher)) paste0(publisher, "; ") else "",
+      if (!is.na(year)) paste0(year) else "",
+      if (!is.na(chapter)) paste0(". Chapter ", chapter, ".") else ""
+    ),
+    paste0( # Default case (miscellaneous)
+      authors, ". ", title, ". ",
+      if (!is.na(year)) paste0(year) else "",
+      if (!is.na(url)) paste0(". Available at: ", url, ".") else ""
+    )
+  )
 
   # Create a vector of keywords
   keywords_vector <- if (!is.na(keywords)) strsplit(keywords, ",\\s*")[[1]] else NA_character_
@@ -332,8 +347,9 @@ format_batch_ama_citation <- function(bibtex_entries) {
       formatted <- vapply(author_list, function(x) {
         parts <- strsplit(x, " ")[[1]]
         last_name <- utils::tail(parts, 1)
-        initials <- paste(substr(parts[-length(parts)], 1, 1), collapse = "")
-        paste(last_name, initials, sep = " ")
+        first_names <- parts[-length(parts)]
+        first_name_initials <- paste(substr(first_names, 1, 1), collapse = " ")
+        paste(last_name, first_names, sep = " ")
       }, character(1))
       paste(formatted, collapse = ", ")
     } else {
@@ -346,10 +362,10 @@ format_batch_ama_citation <- function(bibtex_entries) {
       "article" = paste0(
         formatted_authors, ". ",
         fields$title, ". ",
-        fields$journal, ". ",
-        fields$year, ";",
-        fields$volume, ":",
-        fields$pages,
+        if (!is.na(fields$journal)) paste0(fields$journal, ". ") else "",
+        if (!is.na(fields$year)) paste0(fields$year, ";") else "",
+        if (!is.na(fields$volume)) paste0(fields$volume, ":") else "",
+        if (!is.na(fields$pages)) paste0(fields$pages) else "",
         if (!is.na(fields$doi)) paste0(". doi:", fields$doi) else ""
       ),
       "book" = paste0(

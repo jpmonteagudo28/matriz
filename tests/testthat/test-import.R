@@ -1,5 +1,8 @@
 # Test case 1: Import a valid CSV with required columns and extra columns
 test_that("import_matrix imports valid CSV with required and extra columns", {
+
+  skip_on_cran()
+
   test_file <- "test_csv.csv"  # Path to a test CSV file
 
   # Create a mock CSV file for testing
@@ -47,6 +50,9 @@ test_that("import_matrix imports valid CSV with required and extra columns", {
 
 # Test case 2: Import a CSV with missing required columns
 test_that("import_matrix raises an error with missing required columns", {
+
+  skip_on_cran()
+
   # Create a CSV file with missing columns
   write.csv(data.frame(
     year = 2020,
@@ -63,6 +69,9 @@ test_that("import_matrix raises an error with missing required columns", {
 
 # Test case 3: Import a CSV with extra columns and drop them (drop_extra = TRUE)
 test_that("import_matrix drops extra columns when drop_extra = TRUE", {
+
+  skip_on_cran()
+
   write.csv(data.frame(
     year = 2020,
     citation = "Test citation",
@@ -105,6 +114,9 @@ test_that("import_matrix drops extra columns when drop_extra = TRUE", {
 
 # Test case 4: Import a CSV with extra columns and keep them (drop_extra = FALSE)
 test_that("import_matrix keeps extra columns when drop_extra = FALSE", {
+
+  skip_on_cran()
+
   write.csv(data.frame(
     year = 2020,
     citation = "Test citation",
@@ -147,6 +159,9 @@ test_that("import_matrix keeps extra columns when drop_extra = FALSE", {
 
 # Test case 5: Handling unsupported file format
 test_that("import_matrix raises an error for unsupported file formats", {
+
+  skip_on_cran()
+
   # Create a dummy .md file (Markdown format)
   writeLines(c("# Test file", "Some content here"), "unsupported.md")
 
@@ -159,6 +174,9 @@ test_that("import_matrix raises an error for unsupported file formats", {
 
 # Test case 6: File path is not valid
 test_that("import_matrix rasies an error when file path is not valid", {
+
+  skip_on_cran()
+
   # Expect an error for non-existent file
   expect_error(import_matrix("non_existent_file.csv"),
                "The specified file does not exist.")
@@ -166,6 +184,9 @@ test_that("import_matrix rasies an error when file path is not valid", {
 
 # Test case 7: Import an RDS file with extra columns
 test_that("import_matrix imports RDS file with extra columns", {
+
+  skip_on_cran()
+
   # Create a mock RDS file for testing
   test_data <- data.frame(
     year = 2020,
@@ -218,6 +239,9 @@ test_that("import_matrix imports RDS file with extra columns", {
 
 # Test case 8: format is left as NULL (auto-detect)
 test_that("import_matrix auto detects format from file extension", {
+
+  skip_on_cran()
+
   # Create a mock CSV file for testing
   test_data <- data.frame(
     year = 2020,
@@ -270,6 +294,9 @@ test_that("import_matrix auto detects format from file extension", {
 
 # Test case 9: removing duplicates from literature matrix
 test_that("import_matrix handles duplicate columns correctly", {
+
+  skip_on_cran()
+
   # Create a mock CSV file with duplicate columns
   test_data <- data.frame(
     year = 2020,

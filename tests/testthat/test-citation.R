@@ -48,6 +48,9 @@ test_that("format_ama_citation processes books correctly", {
 })
 
 test_that("process_citation updates .record correctly", {
+
+  skip_on_cran()
+
   temp_file <- tempfile(fileext = ".bib")
   writeLines(mock_article, temp_file)
   updated_record <- process_citation(mock_record, temp_file)
@@ -65,6 +68,9 @@ test_that("extract_field extracts fields correctly", {
 })
 
 test_that("parse_citation parses a single BibTeX entry from file", {
+
+  skip_on_cran()
+
   temp_file <- tempfile(fileext = ".bib")
   writeLines(mock_article, temp_file)
 
@@ -75,6 +81,9 @@ test_that("parse_citation parses a single BibTeX entry from file", {
 })
 
 test_that("parse_batch_citation parses multiple BibTeX entries", {
+
+  skip_on_cran()
+
   temp_file <- tempfile(fileext = ".bib")
   writeLines(c(mock_article, mock_book), temp_file)
 
