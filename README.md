@@ -4,6 +4,13 @@
 # matriz <img src="man/figures/logo.png" align="right" height="275"/>
 
 <!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/matriz)](https://CRAN.R-project.org/package=matriz)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![](https://codecov.io/gh/jpmonteagudo28/matriz/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jpmonteagudo28/matriz)
+![Static Badge](https://img.shields.io/badge/epi-research-%2384B4BF)
 <!-- badges: end -->
 
 The goal of ‘matriz’ is to help you easily generate and manage
@@ -77,13 +84,13 @@ str(lit_matrix)
 #>  $ notes             : chr
 
 # Start filling out individual record with article info
-article <- list(year = 2025,citation = character(0),keywords = character(0),
+article <- list(year = 2025,citation = " ",keywords = " ",
                 profession = "underwater basket weaver",electronic = "YES",
                 purpose = "To investigate the depth of the oceans and retireve weaving materials",
                 study_design = "ethnography", outcome_var = "perceived attitudes towards basket weaving",
                 predictor_var = NA, sample = "a small school of clown fish", setting = "Italy",
                 drop_rate = 0.13, inclusion_criteria = "clow fish in Adriatic Sea", 
-                ehtnicity = "oceanic", age = "0 - 1 year",sex = "both",income = NULL,
+                ehtnicity = "oceanic", age = "0 - 1 year",sex = "both",income = " ",
                 education = "none",measures = "perceived attitudes",
                 analysis = "qualitative", results = "no significant differences",
                 limitations = "small sample size", implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",ethical_concerns = "no informed consent given to school of clown fish",biases = "clownfish always try to be funny. Lack of seriounness",notes = "more research needed")
@@ -115,6 +122,7 @@ combined_matrix <- merge_matrix(lit_matrix, additional_matrix, by = "year", all 
 #> Removing duplicate columns...
 
 # if you rather bind the two matrices together by rows, use 'add_batch_record()'
+# lit_matrix <- add_batch_record(lit_matrix, additional_matrix)
 ```
 
 #### Searching for Records
