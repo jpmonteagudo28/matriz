@@ -51,7 +51,7 @@ add_batch_record <- function(.data,
 
   dots <- list(...)
 
-    new_records <- do.call(rbind, lapply(dots, function(dot) {
+    new_records <- do.call(dplyr::bind_rows, lapply(dots, function(dot) {
 
       if(is_nested_list(dot)){
         if (!same_length(dot,.data)) {
@@ -63,7 +63,7 @@ add_batch_record <- function(.data,
         }
 
         # Convert vector to data frame while preserving column types
-        df_new <- do.call(rbind,
+        df_new <- do.call(dplyr::bind_rows,
                           lapply(dot,
                                   as.data.frame,
                                   stringsAsFactors = FALSE)
@@ -113,7 +113,7 @@ add_batch_record <- function(.data,
       return(.data) # Return early if rows were appended
     }
 
-    .data <- rbind(
+    .data <- dplyr::bind_rows(
       .data[seq_len(position - 1), , drop = FALSE],
       new_records,
       .data[seq(position, nrow(.data)), , drop = FALSE]

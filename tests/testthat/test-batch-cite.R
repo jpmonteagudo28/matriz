@@ -98,3 +98,47 @@ test_that("format_batch_ama_citation handles missing fields gracefully", {
   expect_type(parsed, "list")
   expect_match(parsed$citation, "L Brown. No Journal Name. 2022")
 })
+
+test_data <- data.frame(
+  year = 2025,
+  citation = " ",
+  keywords = " ",
+  profession = "underwater basket weaver",
+  electronic = "YES",
+  purpose = "To investigate the depth of the oceans and retireve weaving materials",
+  study_design = "ethnography",
+  outcome_var = "perceived attitudes towards basket weaving",
+  predictor_var = NA,
+  sample = "a small school of clown fish",
+  setting = "Italy",
+  drop_rate = 0.13,
+  inclusion_criteria = "clow fish in Adriatic Sea",
+  ehtnicity = "oceanic",
+  age = "0 - 1 year",
+  sex = "both",
+  income = " ",
+  education = "none",
+  measures = "perceived attitudes",
+  analysis = "qualitative",
+  results = "no significant differences",
+  limitations = "small sample size",
+  implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",
+  ethical_concerns = "no informed consent given to school of clown fish",
+  biases = "clownfish always try to be funny. Lack of seriounness",
+  notes = "more research needed",
+  stringsAsFactors = FALSE
+)
+
+test_citations <- c("test1.bib", "test2.bib")
+
+test_that("function throws error for invalid input types", {
+  expect_error(process_batch_citation(list(), test_citations), "is.data.frame")
+  expect_error(process_batch_citation(test_data, 123), "is.character")
+})
+
+test_that("function throws error for non-existent citation files", {
+  non_existent_files <- c("non_existent1.bib", "non_existent2.bib")
+  expect_error(process_batch_citation(test_data, non_existent_files), "file.exists")
+})
+
+

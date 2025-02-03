@@ -84,7 +84,7 @@ init_matrix <- function(...){
     message("Extra arguments passed: ", paste(extra_args, collapse = ", "))
 
     for (col_name in extra_args) {
-      new_col <- rep(NA, 1L)
+      new_col <- character(0)
       lit_matrix <- append_column(lit_matrix, new_col, .after = NULL)
       names(lit_matrix)[ncol(lit_matrix)] <- col_name
     }

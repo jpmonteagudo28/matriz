@@ -84,16 +84,32 @@ str(lit_matrix)
 #>  $ notes             : chr
 
 # Start filling out individual record with article info
-article <- list(year = 2025,citation = " ",keywords = " ",
-                profession = "underwater basket weaver",electronic = "YES",
+article <- data.frame(year = 2025,
+                citation = " ",
+                keywords = " ",
+                profession = "underwater basket weaver",
+                electronic = "YES",
                 purpose = "To investigate the depth of the oceans and retireve weaving materials",
-                study_design = "ethnography", outcome_var = "perceived attitudes towards basket weaving",
-                predictor_var = NA, sample = "a small school of clown fish", setting = "Italy",
-                drop_rate = 0.13, inclusion_criteria = "clow fish in Adriatic Sea", 
-                ehtnicity = "oceanic", age = "0 - 1 year",sex = "both",income = " ",
-                education = "none",measures = "perceived attitudes",
-                analysis = "qualitative", results = "no significant differences",
-                limitations = "small sample size", implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",ethical_concerns = "no informed consent given to school of clown fish",biases = "clownfish always try to be funny. Lack of seriounness",notes = "more research needed")
+                study_design = "ethnography", 
+                outcome_var = "perceived attitudes towards basket weaving",
+                predictor_var = NA, 
+                sample = "a small school of clown fish", 
+                setting = "Italy",
+                drop_rate = 0.13, 
+                inclusion_criteria = "clow fish in Adriatic Sea", 
+                ehtnicity = "oceanic", 
+                age = "0 - 1 year",
+                sex = "both",
+                income = " ",
+                education = "none",
+                measures = "perceived attitudes",
+                analysis = "qualitative", 
+                results = "no significant differences",
+                limitations = "small sample size", 
+                implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",
+                ethical_concerns = "no informed consent given to school of clown fish",
+                biases = "clownfish always try to be funny. Lack of seriounness",
+                notes = "more research needed")
 
 
 # Process and add the citation to the current record
@@ -115,6 +131,11 @@ If you have multiple literature matrices and need to combine them, use
 `merge_matrix()`. This function ensures that duplicate columns are
 removed before merging.
 
+> **Note**: If your article summaries are lists and their element
+> classes differ from those in the init_matrix data frame, using
+> add_batch_record() may coerce all elements to lists instead of
+> preserving their original classes.
+
 ``` r
 # Merge two literature matrices by a common column (e.g., "study_id")
 additional_matrix <- lit_matrix
@@ -122,7 +143,7 @@ combined_matrix <- merge_matrix(lit_matrix, additional_matrix, by = "year", all 
 #> Removing duplicate columns...
 
 # if you rather bind the two matrices together by rows, use 'add_batch_record()'
-# lit_matrix <- add_batch_record(lit_matrix, additional_matrix)
+lit_matrix <- add_batch_record(lit_matrix, additional_matrix)
 ```
 
 #### Searching for Records
