@@ -6,6 +6,9 @@
 \usage{
 extract()
 }
+\value{
+typically an array-like R object of a similar class as x.
+}
 \description{
 Alias for base R extract operator `[`
 }

@@ -18,10 +18,4 @@ If the file contains a single citation, returns a character string.
 Reads and parses multiple BibTeX citations from a file, handling whitespace
 and formatting while ensuring proper brace matching.
 }
-\examples{
-\dontrun{
-citations <- parse_batch_citation("path/to/citations.bib")
-}
-
-}
 \keyword{internal}

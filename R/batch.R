@@ -17,7 +17,7 @@
 #' @return A data frame with the new records added at the specified position
 #'
 #' @examples
-#' \dontrun{
+#'
 #' # Create sample data frame
 #' df <- data.frame(
 #'   name = c("John", "Jane"),
@@ -32,7 +32,7 @@
 #'   name = c("Alice", "Charlie"),
 #'   age = c(28, 40)
 #' )
-#' df <- add_batch_record(df, new_records, .before = 2)}
+#' df <- add_batch_record(df, new_records, .before = 2)
 #'
 #' @export
 add_batch_record <- function(.data,
@@ -145,13 +145,34 @@ add_batch_record <- function(.data,
 #'
 #' @examples
 #' # Create sample data frame
-#' df <- data.frame(
-#'   citation = character(2),
-#'   keywords = I(list(NULL, NULL)),
-#'   year = numeric(2)
-#' )
+#' df <- data.frame(year = 2025,
+#'' citation = " ",
+#' keywords = " ",
+#' profession = "underwater basket weaver",
+#' electronic = "YES",
+#' purpose = "To investigate the depth of the oceans and retireve weaving materials",
+#' study_design = "ethnography",
+#' outcome_var = "perceived attitudes towards basket weaving",
+#' predictor_var = NA,
+#' sample = "a small school of clown fish",
+#' setting = "Italy",
+#' drop_rate = 0.13,
+#' inclusion_criteria = "clow fish in Adriatic Sea",
+#' ehtnicity = "oceanic",
+#' age = "0 - 1 year",
+#' sex = "both",
+#' income = " ",
+#' education = "none",
+#' measures = "perceived attitudes",
+#' analysis = "qualitative",
+#' results = "no significant differences",
+#' limitations = "small sample size",
+#' implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",
+#' ethical_concerns = "no informed consent given to school of clown fish",
+#' biases = "clownfish always try to be funny. Lack of seriounness",
+#' notes = "more research needed")
 #'
-#' \dontrun{
+#'
 #' # Process citations from files
 #' df <- process_batch_citation(
 #'   df,
@@ -164,7 +185,7 @@ add_batch_record <- function(.data,
 #'   citations = "new_citation.bib",
 #'   where = c(TRUE, FALSE)
 #' )
-#' }
+#'
 #'
 #' @seealso \code{\link{format_batch_ama_citation}}, \code{\link{parse_batch_citation}}
 #' @export

@@ -16,10 +16,4 @@ A character string containing the cleaned and parsed BibTeX entry
 Reads and parses a single BibTeX citation from a file, cleaning up whitespace
 and formatting.
 }
-\examples{
-\dontrun{
-citation <- parse_citation("path/to/citation.bib")
-}
-
-}
 \keyword{internal}

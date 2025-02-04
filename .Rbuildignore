@@ -9,3 +9,7 @@
 ^docs$
 ^pkgdown$
 ^_pkgdown\.yml$
+^CRAN-SUBMISSION$
+^inst$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$

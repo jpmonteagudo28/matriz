@@ -41,6 +41,7 @@ It also allows the user to control whether extra columns should be dropped or ke
 }
 \details{
 The matrix includes the following predefined columns:
+
 - `year`: Numeric. Year of publication.
 - `citation`: Character. Citation or reference details.
 - `keywords`: Character. Keywords or tags for the study.
@@ -78,18 +79,4 @@ The `...` argument allows you to pass additional parameters directly to the read
 - For `readxl::read_xlsx`, `...` could include `sheet = 1` or `col_names = TRUE`.
 - For `readxl::read_xls`, `...` could include `sheet = 1` or `col_Names = TRUE`.
 - For `read.table`, `...` could include `header = TRUE`, `sep`, or `stringsAsFactors = FALSE`.
-}
-\examples{
-\dontrun{
-# Import a CSV file with extra columns
-data <- import_matrix("data.csv", format = "csv", drop_extra = FALSE)
-
-# Import a TSV file and drop extra columns
-data <- import_matrix("data.tsv", format = "tsv", drop_extra = TRUE)
-
-# Import an RDS file and allow additional columns
-data <- import_matrix("data.rds", format = "rds",
-extra_columns = c("extra_column1", "extra_column2"))
-}
-
 }

@@ -1,7 +1,7 @@
 Package: matriz
 Type: Package
 Title: Literature Matrix Synthesis Tools for Epidemiology and Health Science Research
-Version: 0.1.0
+Version: 1.0.1
 Authors@R: 
     person("JP", "Monteagudo", 
     email = "jpmonteagudo2014@gmail.com", 

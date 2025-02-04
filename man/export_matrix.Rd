@@ -37,21 +37,3 @@ Exports the data to a file and returns `NULL` invisibly.
 This function exports a data frame to a specified file format, including CSV, TSV, RDS, XLSX, and TXT.
 If the format is not provided, it is inferred from the file extension.
 }
-\examples{
-\dontrun{
-# Create a sample data frame
-data <- data.frame(a = 1:5, b = letters[1:5])
-
-# Export as CSV
-export_matrix(data, "output.csv")
-
-# Export as Excel file
-export_matrix(data, "output.xlsx")
-
-# Export as RDS file
-export_matrix(data, "output.rds")
-
-# Export silently
-export_matrix(data, "output.csv", silent = TRUE)
-}
-}

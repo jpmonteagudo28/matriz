@@ -26,30 +26,6 @@ A data frame with updated citation information in the specified rows
 Reads multiple BibTeX citations from files and updates the corresponding rows in a
 literature matrix with formatted citations, keywords, and years.
 }
-\examples{
-# Create sample data frame
-df <- data.frame(
-  citation = character(2),
-  keywords = I(list(NULL, NULL)),
-  year = numeric(2)
-)
-
-\dontrun{
-# Process citations from files
-df <- process_batch_citation(
-  df,
-  citations = c("citation1.bib", "citation2.bib")
-)
-
-# Update specific rows
-df <- process_batch_citation(
-  df,
-  citations = "new_citation.bib",
-  where = c(TRUE, FALSE)
-)
-}
-
-}
 \seealso{
 \code{\link{format_batch_ama_citation}}, \code{\link{parse_batch_citation}}
 }

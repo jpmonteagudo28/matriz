@@ -4,17 +4,14 @@
 #' then extracts the class of each column. It returns a data frame containing
 #' the class information for each column.
 #'
-#' @param ... extra arguments to pass as column names for the lierature matrix
+#' @param ... extra arguments to pass as column names for the literature matrix
 #'
 #' @return A data frame with one column named \code{class} that lists the class
 #'   of each column from the matrix or data frame returned by \code{init_matrix()}.
 #'
 #' @examples
-#' \dontrun{
-#'   # Assuming init_matrix() is defined and returns a valid data frame or matrix
-#'   class_info <- matriz_names()
-#'   print(class_info)
-#' }
+#' matriz_names()
+#'
 #'
 #' @details
 #' The purpose of this function is to provide the user with a quick way to check the default names and classes

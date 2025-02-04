@@ -7,7 +7,7 @@
 matriz_names(...)
 }
 \arguments{
-\item{...}{extra arguments to pass as column names for the lierature matrix}
+\item{...}{extra arguments to pass as column names for the literature matrix}
 }
 \value{
 A data frame with one column named \code{class} that lists the class
@@ -23,10 +23,7 @@ The purpose of this function is to provide the user with a quick way to check th
 as the matrix is being filled instead of having to type `str(init_matrix())` every time the user forgets a category in the default matrix.
 }
 \examples{
-\dontrun{
-  # Assuming init_matrix() is defined and returns a valid data frame or matrix
-  class_info <- matriz_names()
-  print(class_info)
-}
+matriz_names()
+
 
 }

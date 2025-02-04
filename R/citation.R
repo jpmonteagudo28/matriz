@@ -179,11 +179,6 @@ extract_field <- function(entry, field) {
 #'
 #' @return A character string containing the cleaned and parsed BibTeX entry
 #'
-#' @examples
-#' \dontrun{
-#' citation <- parse_citation("path/to/citation.bib")
-#' }
-#'
 #' @keywords internal
 parse_citation <- function(entry){
 
@@ -211,10 +206,6 @@ parse_citation <- function(entry){
 #'   If multiple citations are present, returns a character vector of citations.
 #'   Returns NULL if no citations are found.
 #'
-#' @examples
-#' \dontrun{
-#' citations <- parse_batch_citation("path/to/citations.bib")
-#' }
 #'
 #' @keywords internal
 parse_batch_citation <- function(entry) {

@@ -128,8 +128,10 @@ lit_matrix <- update_record(lit_matrix, notes, where = year == 2025, set_to = "a
 #### Merging Matrices
 
 If you have multiple literature matrices and need to combine them, use
-`merge_matrix()`. This function ensures that duplicate columns are
-removed before merging.
+`merge_matrix()`if you intend to combine matrices with dissimilar column
+names. If you are joining two equal matrices with distinct articles, use
+`add_record()` to add one record at a time or `add_batch_record()` to
+add multiple article summaries at once.
 
 > **Note**: If your article summaries are lists and their element
 > classes differ from those in the init_matrix data frame, using
@@ -152,11 +154,67 @@ Once your matrix is set up, you might need to search for specific
 studies based on keywords, author names, or topics. Use
 `search_record()` to filter the matrix for relevant entries.
 
+``` r
+ # Let's find all the electronic records we've summarized so far
+ useless_search <- search_record(lit_matrix, where = electronic == "YES")
+head(useless_search,1)
+#>   year
+#> 1 2024
+#>                                                                          citation
+#> 1 Smith J, Jones K. Example Title. Journal Name. 2024;1:1-10. doi:10.1234/example
+#>   keywords               profession electronic
+#> 1     <NA> underwater basket weaver        YES
+#>                                                                 purpose
+#> 1 To investigate the depth of the oceans and retireve weaving materials
+#>   study_design                                outcome_var predictor_var
+#> 1  ethnography perceived attitudes towards basket weaving          <NA>
+#>                         sample dropout_rate setting        inclusion_criteria
+#> 1 a small school of clown fish        Italy    0.13 clow fish in Adriatic Sea
+#>   ethnicity        age  sex income education            measures    analysis
+#> 1   oceanic 0 - 1 year both             none perceived attitudes qualitative
+#>                      results       limitations
+#> 1 no significant differences small sample size
+#>                                                                            implications
+#> 1 clow fish don't like humans taking their homes for their own basket weaving endeavors
+#>                                    ethical_concerns
+#> 1 no informed consent given to school of clown fish
+#>                                                  biases                notes
+#> 1 clownfish always try to be funny. Lack of seriounness more research needed
+
+ # Change format to paper record by updating electronic to "NO"
+ lit_matrix <- update_record(lit_matrix,electronic,where = electronic == "YES", set_to = "NO")
+```
+
 #### Exporting the Final Matrix
 
 Once you’ve refined and categorized your literature review, you can
 export the matrix for further use in Excel or other tools using
 `export_matrix()`.
 
+``` r
+# Let's export our matrix
+export_matrix(lit_matrix,"lit_matrix.txt",format = "txt")
+#> Successfully imported matrix with 26 columns (26 required + 0 additional).
+#> Data successfully exported to lit_matrix.txt
+```
+
 This structured workflow should make managing literature reviews more
 efficient and streamlined.
+
+## Project status
+
+Actively developed, though the pace has slowed now that I’m busier with
+other packages and my school work. I use it almost every day so it’s not
+going anywhere. But I have no plans to substantially enlarge or extend
+it before really testing it through daily use.
+
+## Contributions
+
+If you would like to contribute to this package, I’d love your help!
+Please read the guidelines for submitting a pull request.
+
+## Code of Conduct
+
+Please note that the `matriz` project is released with a [Contributor
+Code of Conduct](https://matriz.jpmonteagudo.com/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

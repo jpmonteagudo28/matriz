@@ -95,6 +95,7 @@ equal_names <- function(x,y){
 #'
 #' @description
 #' Alias for base R extract operator `[`
+#' @return 	typically an array-like R object of a similar class as x.
 #'
 #' @keywords internal
 extract <- `[`
@@ -103,6 +104,7 @@ extract <- `[`
 #'
 #' @description
 #' Alias for base R extract operator `[[`
+#' @return 	typically an array-like R object of a similar class as x.
 #'
 #' @keywords internal
 extract2 <- `[[`

@@ -18,9 +18,34 @@
 #' @importFrom readxl write_tsv
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Create a sample data frame
-#' data <- data.frame(a = 1:5, b = letters[1:5])
+#' data <- data.frame(year = 2025,
+#'' citation = " ",
+#' keywords = " ",
+#' profession = "underwater basket weaver",
+#' electronic = "YES",
+#' purpose = "To investigate the depth of the oceans and retireve weaving materials",
+#' study_design = "ethnography",
+#' outcome_var = "perceived attitudes towards basket weaving",
+#' predictor_var = NA,
+#' sample = "a small school of clown fish",
+#' setting = "Italy",
+#' drop_rate = 0.13,
+#' inclusion_criteria = "clow fish in Adriatic Sea",
+#' ehtnicity = "oceanic",
+#' age = "0 - 1 year",
+#' sex = "both",
+#' income = " ",
+#' education = "none",
+#' measures = "perceived attitudes",
+#' analysis = "qualitative",
+#' results = "no significant differences",
+#' limitations = "small sample size",
+#' implications = "clow fish don't like humans taking their homes for their own basket weaving endeavors",
+#' ethical_concerns = "no informed consent given to school of clown fish",
+#' biases = "clownfish always try to be funny. Lack of seriounness",
+#' notes = "more research needed")
 #'
 #' # Export as CSV
 #' export_matrix(data, "output.csv")
