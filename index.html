@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">matriz</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,7 +164,7 @@
 <div class="section level4">
 <h4 id="merging-matrices">Merging Matrices<a class="anchor" aria-label="anchor" href="#merging-matrices"></a>
 </h4>
-<p>If you have multiple literature matrices and need to combine them, use <code><a href="reference/merge_matrix.html">merge_matrix()</a></code>. This function ensures that duplicate columns are removed before merging.</p>
+<p>If you have multiple literature matrices and need to combine them, use <code><a href="reference/merge_matrix.html">merge_matrix()</a></code>if you intend to combine matrices with dissimilar column names. If you are joining two equal matrices with distinct articles, use <code><a href="reference/add_record.html">add_record()</a></code> to add one record at a time or <code><a href="reference/add_batch_record.html">add_batch_record()</a></code> to add multiple article summaries at once.</p>
 <blockquote>
 <p><strong>Note</strong>: If your article summaries are lists and their element classes differ from those in the init_matrix data frame, using add_batch_record() may coerce all elements to lists instead of preserving their original classes.</p>
 </blockquote>
@@ -181,13 +181,62 @@
 <h4 id="searching-for-records">Searching for Records<a class="anchor" aria-label="anchor" href="#searching-for-records"></a>
 </h4>
 <p>Once your matrix is set up, you might need to search for specific studies based on keywords, author names, or topics. Use <code><a href="reference/search_record.html">search_record()</a></code> to filter the matrix for relevant entries.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="co"># Let's find all the electronic records we've summarized so far</span></span>
+<span> <span class="va">useless_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_record.html">search_record</a></span><span class="op">(</span><span class="va">lit_matrix</span>, where <span class="op">=</span> <span class="va">electronic</span> <span class="op">==</span> <span class="st">"YES"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">useless_search</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   year</span></span>
+<span><span class="co">#&gt; 1 2024</span></span>
+<span><span class="co">#&gt;                                                                          citation</span></span>
+<span><span class="co">#&gt; 1 Smith J, Jones K. Example Title. Journal Name. 2024;1:1-10. doi:10.1234/example</span></span>
+<span><span class="co">#&gt;   keywords               profession electronic</span></span>
+<span><span class="co">#&gt; 1     &lt;NA&gt; underwater basket weaver        YES</span></span>
+<span><span class="co">#&gt;                                                                 purpose</span></span>
+<span><span class="co">#&gt; 1 To investigate the depth of the oceans and retireve weaving materials</span></span>
+<span><span class="co">#&gt;   study_design                                outcome_var predictor_var</span></span>
+<span><span class="co">#&gt; 1  ethnography perceived attitudes towards basket weaving          &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                         sample dropout_rate setting        inclusion_criteria</span></span>
+<span><span class="co">#&gt; 1 a small school of clown fish        Italy    0.13 clow fish in Adriatic Sea</span></span>
+<span><span class="co">#&gt;   ethnicity        age  sex income education            measures    analysis</span></span>
+<span><span class="co">#&gt; 1   oceanic 0 - 1 year both             none perceived attitudes qualitative</span></span>
+<span><span class="co">#&gt;                      results       limitations</span></span>
+<span><span class="co">#&gt; 1 no significant differences small sample size</span></span>
+<span><span class="co">#&gt;                                                                            implications</span></span>
+<span><span class="co">#&gt; 1 clow fish don't like humans taking their homes for their own basket weaving endeavors</span></span>
+<span><span class="co">#&gt;                                    ethical_concerns</span></span>
+<span><span class="co">#&gt; 1 no informed consent given to school of clown fish</span></span>
+<span><span class="co">#&gt;                                                  biases                notes</span></span>
+<span><span class="co">#&gt; 1 clownfish always try to be funny. Lack of seriounness more research needed</span></span>
+<span></span>
+<span> <span class="co"># Change format to paper record by updating electronic to "NO"</span></span>
+<span> <span class="va">lit_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/update_record.html">update_record</a></span><span class="op">(</span><span class="va">lit_matrix</span>,<span class="va">electronic</span>,where <span class="op">=</span> <span class="va">electronic</span> <span class="op">==</span> <span class="st">"YES"</span>, set_to <span class="op">=</span> <span class="st">"NO"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="exporting-the-final-matrix">Exporting the Final Matrix<a class="anchor" aria-label="anchor" href="#exporting-the-final-matrix"></a>
 </h4>
 <p>Once you’ve refined and categorized your literature review, you can export the matrix for further use in Excel or other tools using <code><a href="reference/export_matrix.html">export_matrix()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Let's export our matrix</span></span>
+<span><span class="fu"><a href="reference/export_matrix.html">export_matrix</a></span><span class="op">(</span><span class="va">lit_matrix</span>,<span class="st">"lit_matrix.txt"</span>,format <span class="op">=</span> <span class="st">"txt"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Successfully imported matrix with 26 columns (26 required + 0 additional).</span></span>
+<span><span class="co">#&gt; Data successfully exported to lit_matrix.txt</span></span></code></pre></div>
 <p>This structured workflow should make managing literature reviews more efficient and streamlined.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="project-status">Project status<a class="anchor" aria-label="anchor" href="#project-status"></a>
+</h2>
+<p>Actively developed, though the pace has slowed now that I’m busier with other packages and my school work. I use it almost every day so it’s not going anywhere. But I have no plans to substantially enlarge or extend it before really testing it through daily use.</p>
+</div>
+<div class="section level2">
+<h2 id="contributions">Contributions<a class="anchor" aria-label="anchor" href="#contributions"></a>
+</h2>
+<p>If you would like to contribute to this package, I’d love your help! Please read the guidelines for submitting a pull request.</p>
+</div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the <code>matriz</code> project is released with a <a href="https://matriz.jpmonteagudo.com/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -206,6 +255,13 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>

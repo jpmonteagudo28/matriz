@@ -11,7 +11,7 @@ the class information for each column."><meta property="og:image" content="https
 
     <a class="navbar-brand me-2" href="../index.html">matriz</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@ the class information for each column.</p>
 
 
 <dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>extra arguments to pass as column names for the lierature matrix</p></dd>
+<dd><p>extra arguments to pass as column names for the literature matrix</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -68,11 +68,35 @@ as the matrix is being filled instead of having to type `str(init_matrix())` eve
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span>  <span class="co"># Assuming init_matrix() is defined and returns a valid data frame or matrix</span></span></span>
-<span class="r-in"><span>  <span class="va">class_info</span> <span class="op">&lt;-</span> <span class="fu">matriz_names</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">class_info</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">matriz_names</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> year                 numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> citation           character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> keywords           character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> profession         character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> electronic           logical</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> purpose            character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> study_design       character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> outcome_var        character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> predictor_var      character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sample               numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dropout_rate         numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> setting            character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> inclusion_criteria character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ethnicity          character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age                  numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sex                   factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> income                factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> education          character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> measures           character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> analysis           character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> results            character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> limitations        character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> implications       character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ethical_concerns   character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> biases             character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> notes              character</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
