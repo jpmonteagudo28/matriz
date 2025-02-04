@@ -53,35 +53,35 @@ library(matriz)
 
 lit_matrix <- init_matrix()
 
-#Print empty matrix
-str(lit_matrix)
-#> 'data.frame':    0 obs. of  26 variables:
-#>  $ year              : num 
-#>  $ citation          : chr 
-#>  $ keywords          : chr 
-#>  $ profession        : chr 
-#>  $ electronic        : logi 
-#>  $ purpose           : chr 
-#>  $ study_design      : chr 
-#>  $ outcome_var       : chr 
-#>  $ predictor_var     : chr 
-#>  $ sample            : num 
-#>  $ dropout_rate      : num 
-#>  $ setting           : chr 
-#>  $ inclusion_criteria: chr 
-#>  $ ethnicity         : chr 
-#>  $ age               : num 
-#>  $ sex               : Factor w/ 0 levels: 
-#>  $ income            : Factor w/ 0 levels: 
-#>  $ education         : chr 
-#>  $ measures          : chr 
-#>  $ analysis          : chr 
-#>  $ results           : chr 
-#>  $ limitations       : chr 
-#>  $ implications      : chr 
-#>  $ ethical_concerns  : chr 
-#>  $ biases            : chr 
-#>  $ notes             : chr
+# Get matriz structure to guide in creating records
+matriz_names()
+#>                        class
+#> year                 numeric
+#> citation           character
+#> keywords           character
+#> profession         character
+#> electronic           logical
+#> purpose            character
+#> study_design       character
+#> outcome_var        character
+#> predictor_var      character
+#> sample               numeric
+#> dropout_rate         numeric
+#> setting            character
+#> inclusion_criteria character
+#> ethnicity          character
+#> age                  numeric
+#> sex                   factor
+#> income                factor
+#> education          character
+#> measures           character
+#> analysis           character
+#> results            character
+#> limitations        character
+#> implications       character
+#> ethical_concerns   character
+#> biases             character
+#> notes              character
 
 # Start filling out individual record with article info
 article <- data.frame(year = 2025,

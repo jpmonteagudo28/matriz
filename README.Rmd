@@ -53,8 +53,8 @@ library(matriz)
 
 lit_matrix <- init_matrix()
 
-#Print empty matrix
-str(lit_matrix)
+# Get matriz structure to guide in creating records
+matriz_names()
 
 # Start filling out individual record with article info
 article <- data.frame(year = 2025,

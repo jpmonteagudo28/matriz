@@ -1,6 +1,6 @@
 Package: matriz
 Type: Package
-Title: Literature matrix synthesis tools for epidemiologic and health science research; specifically, literature reviews
+Title: Literature Matrix Synthesis Tools for Epidemiologic and Health Science Research
 Version: 0.1.0
 Authors@R: 
     person("JP", "Monteagudo", 
@@ -8,7 +8,7 @@ Authors@R:
     role = c("aut", "cre", "cph"),
     comment = c(ORCID = "0009-0003-6465-6658"))
 Maintainer: JP Monteagudo <jpmonteagudo2014@gmail.com>
-Description: matriz provides tools to create, update and fill literature matrices commonly used in research, specifically epidemiologic and health sciences research. The project is born out of need as a easy–to–use tool for my research methods classes.
+Description: An easy-to-use workflow that provides tools to create, update and fill literature matrices commonly used in research, specifically epidemiologic and health sciences research. The project is born out of need as an easy–to–use tool for my research methods classes.
 License: AGPL (>= 3)
 Encoding: UTF-8
 LazyData: true

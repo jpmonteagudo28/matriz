@@ -141,4 +141,61 @@ test_that("function throws error for non-existent citation files", {
   expect_error(process_batch_citation(test_data, non_existent_files), "file.exists")
 })
 
+test_that("parse_batch_citation correctly parses multiple BibTeX entries", {
+  mock_file <- create_mock_bib_file(
+    "@article{key1,
+  author= {Smith J},
+  title= {Example One},
+  year= {2024}
+}
 
+@book{key2,
+  author= {Jones K},
+  title= {Example Two},
+  publisher= {Publisher},
+  year= {2023}
+}"
+  )
+
+  parsed <- parse_batch_citation(mock_file)
+
+  # Expect the output to be a character vector
+  expect_type(parsed, "character")
+
+  # Expect two entries in the parsed result
+  expect_length(parsed, 2)
+
+  # Validate that the first entry appears to be an article
+  expect_match(parsed[1], "@article")
+
+  # Validate that the second entry appears to be a book
+  expect_match(parsed[2], "@book")
+})
+
+
+# Test: A file with a single BibTeX entry is parsed correctly
+test_that("parse_batch_citation correctly parses a single BibTeX entry", {
+  mock_file <- create_mock_bib_file(
+    "@inproceedings{key_single,
+  author= {Doe J},
+  title= {Single Entry Example},
+  year= {2025}
+}"
+  )
+  parsed <- parse_batch_citation(mock_file)
+
+  expect_type(parsed, "character")
+  expect_length(parsed, 1)
+  expect_match(parsed[1], "@inproceedings")
+  expect_match(parsed[1], "author\\s*=\\s*\\{Doe J\\}")
+  expect_match(parsed[1], "year\\s*=\\s*\\{2025\\}")
+})
+
+# Test: Non-existent file causes an error
+test_that("parse_batch_citation throws an error for non-existent files", {
+  fake_file <- tempfile(fileext = ".bib")
+  # Ensure the file does not exist
+  if (file.exists(fake_file)) unlink(fake_file)
+
+  expect_error(parse_batch_citation(fake_file), "cannot open")
+})
