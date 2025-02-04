@@ -4,11 +4,11 @@
 \name{matriz-package}
 \alias{matriz}
 \alias{matriz-package}
-\title{matriz: Literature Matrix Synthesis Tools for Epidemiologic and Health Science Research}
+\title{matriz: Literature Matrix Synthesis Tools for Epidemiology and Health Science Research}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-An easy-to-use workflow that provides tools to create, update and fill literature matrices commonly used in research, specifically epidemiologic and health sciences research. The project is born out of need as an easy–to–use tool for my research methods classes.
+An easy-to-use workflow that provides tools to create, update and fill literature matrices commonly used in research, specifically epidemiology and health sciences research. The project is born out of need as an easy–to–use tool for my research methods classes.
 }
 \seealso{
 Useful links:
