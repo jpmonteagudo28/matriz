@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![](https://codecov.io/gh/jpmonteagudo28/matriz/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jpmonteagudo28/matriz)
 ![Static Badge](https://img.shields.io/badge/epi-research-%2384B4BF)
+[![](https://cranlogs.r-pkg.org/badges/matriz)](https://cran.r-project.org/package=matriz)
 <!-- badges: end -->
 
 The goal of `matriz` is to help you easily generate and manage structured literature review matrices in R. The package aims to streamline your research synthesis, track key study details, and organize citations efficiently.

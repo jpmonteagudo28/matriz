@@ -11,6 +11,7 @@ status](https://www.r-pkg.org/badges/version/matriz)](https://CRAN.R-project.org
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![](https://codecov.io/gh/jpmonteagudo28/matriz/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jpmonteagudo28/matriz)
 ![Static Badge](https://img.shields.io/badge/epi-research-%2384B4BF)
+[![](https://cranlogs.r-pkg.org/badges/matriz)](https://cran.r-project.org/package=matriz)
 <!-- badges: end -->
 
 The goal of `matriz` is to help you easily generate and manage
